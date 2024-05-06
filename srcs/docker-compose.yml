@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  nginx:
+    container_name: nginx
+    build:
+      context: ./requeriments/nginx/
+      dockerfile: Dockerfile
+    ports:
+      - 443:443
+    volumes:
+      - ./requeriments/nginx/conf:/etc/nginx/conf/http.d
+    restart: always
+    env_file: .env

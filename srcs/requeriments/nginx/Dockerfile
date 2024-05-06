@@ -4,8 +4,10 @@ RUN apt-get update && apt-get upgrade && apt install -y nginx && apt install -y 
 
 COPY ./conf/nginx.conf etc/nginx/nginx.conf
 
-COPY ./tools/init.sh /nginx_init.sh
+COPY ./tools/nginx_init.sh ./init.sh
 
-RUN chmod +x nginx_init.sh
+RUN chmod +x init.sh
 
-CMD ["./nginx_init.sh"]
+CMD ["./init.sh"]
+
+ENTRYPOINT ["tail", "-f", "sh"]
