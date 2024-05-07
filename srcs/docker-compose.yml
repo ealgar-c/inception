@@ -4,11 +4,28 @@ services:
   nginx:
     container_name: nginx
     build:
-      context: ./requeriments/nginx/
+      context: ./requirements/nginx/
       dockerfile: Dockerfile
     ports:
       - 443:443
     volumes:
-      - ./requeriments/nginx/conf:/etc/nginx/conf/http.d
+      - ./requirements/nginx/conf:/etc/nginx/conf/http.d
     restart: always
     env_file: .env
+  mariadb:
+    container_name: mariadb
+    build:
+      context: ./requirements/mariadb
+      dockerfile: Dockerfile
+    restart: always
+    env_file: .env
+    volumes:
+      - db_volume:/var/lib/mysql
+
+volumes:
+  db_volume:
+    driver: local
+    driver_opts:
+        type: none	
+        device: /home/ealgar-c/data/mariadb
+        o: bind
