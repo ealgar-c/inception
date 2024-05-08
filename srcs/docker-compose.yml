@@ -13,19 +13,33 @@ services:
     restart: always
     env_file: .env
   mariadb:
-    container_name: mariadb
+      container_name: mariadb
+      build:
+        context: ./requirements/mariadb
+        dockerfile: Dockerfile
+      restart: always
+      env_file: .env
+      volumes:
+        - db_volume:/var/lib/mysql
+  wordpress:
+    container_name: wordpress
     build:
-      context: ./requirements/mariadb
+      context: ./requirements/wordpress
       dockerfile: Dockerfile
     restart: always
     env_file: .env
     volumes:
-      - db_volume:/var/lib/mysql
-
+      - wp_volume:var/www/html
 volumes:
   db_volume:
     driver: local
     driver_opts:
-        type: none	
+        type: none
         device: /home/ealgar-c/data/mariadb
+        o: bind
+  wp_volume:
+    driver: local
+    driver_opts:
+        type: none
+        device: /home/ealgar-c/data/wordpress
         o: bind
