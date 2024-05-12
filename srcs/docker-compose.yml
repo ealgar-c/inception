@@ -12,6 +12,8 @@ services:
       - ./requirements/nginx/conf:/etc/nginx/conf/http.d
     restart: always
     env_file: .env
+    depends_on:
+      - wordpress
     networks:
       - inception
   mariadb:
@@ -32,6 +34,8 @@ services:
       dockerfile: Dockerfile
     restart: always
     env_file: .env
+    depends_on:
+      - mariadb
     volumes:
       - wp_volume:/var/www/html
     networks:
