@@ -13,3 +13,4 @@ sed -i "s#certkey_path#$CERTKEY_PATH#g" /etc/nginx/nginx.conf
 
 # disable daemon for nginx (necessary for Docker)
 nginx -g "daemon off;"
+tail -f

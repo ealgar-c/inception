@@ -12,15 +12,19 @@ services:
       - ./requirements/nginx/conf:/etc/nginx/conf/http.d
     restart: always
     env_file: .env
+    networks:
+      - inception
   mariadb:
-      container_name: mariadb
-      build:
-        context: ./requirements/mariadb
-        dockerfile: Dockerfile
-      restart: always
-      env_file: .env
-      volumes:
-        - db_volume:/var/lib/mysql
+    container_name: mariadb
+    build:
+      context: ./requirements/mariadb
+      dockerfile: Dockerfile
+    restart: always
+    env_file: .env
+    volumes:
+      - db_volume:/var/lib/mysql
+    networks:
+      - inception
   wordpress:
     container_name: wordpress
     build:
@@ -29,7 +33,9 @@ services:
     restart: always
     env_file: .env
     volumes:
-      - wp_volume:var/www/html
+      - wp_volume:/var/www/html
+    networks:
+      - inception
 volumes:
   db_volume:
     driver: local
@@ -43,3 +49,6 @@ volumes:
         type: none
         device: /home/ealgar-c/data/wordpress
         o: bind
+networks:
+  inception:
+    driver: bridge
