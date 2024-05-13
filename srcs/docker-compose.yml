@@ -9,17 +9,18 @@ services:
     ports:
       - 443:443
     volumes:
-      - ./requirements/nginx/conf:/etc/nginx/conf/http.d
+      - wp_volume:/var/www/html
     restart: always
     env_file: .env
     depends_on:
       - wordpress
     networks:
       - inception
+
   mariadb:
     container_name: mariadb
     build:
-      context: ./requirements/mariadb
+      context: ./requirements/mariadb/
       dockerfile: Dockerfile
     restart: always
     env_file: .env
@@ -27,10 +28,11 @@ services:
       - db_volume:/var/lib/mysql
     networks:
       - inception
+
   wordpress:
     container_name: wordpress
     build:
-      context: ./requirements/wordpress
+      context: ./requirements/wordpress/
       dockerfile: Dockerfile
     restart: always
     env_file: .env
@@ -40,6 +42,7 @@ services:
       - wp_volume:/var/www/html
     networks:
       - inception
+
 volumes:
   db_volume:
     driver: local
@@ -47,12 +50,14 @@ volumes:
         type: none
         device: /home/ealgar-c/data/mariadb
         o: bind
+
   wp_volume:
     driver: local
     driver_opts:
         type: none
         device: /home/ealgar-c/data/wordpress
         o: bind
+
 networks:
   inception:
     driver: bridge

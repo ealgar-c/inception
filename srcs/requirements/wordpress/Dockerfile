@@ -12,7 +12,7 @@ RUN apt-get -y install wget tar
 
 # install wordpress in the html directory
 RUN wget -O /tmp/wordpress.tar.gz https://wordpress.org/latest.tar.gz
-RUN tar -xzvf/tmp/wordpress.tar.gz -C /var/www/html
+RUN tar -xzvf /tmp/wordpress.tar.gz -C /var/www/html
 
 COPY /tools/wp_init.sh .
 EXPOSE 9000
