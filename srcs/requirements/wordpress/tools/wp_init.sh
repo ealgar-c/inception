@@ -2,7 +2,7 @@
 
 mkdir -p /run/php
 
-chown -R www-data.www-data /var/www/html/worpress
+chown -R www-data.www-data /var/www/html/wordpress
 chmod -R 755 /var/www/html/wordpress
 
 sed -i 's#listen = /run/php/php7.4-fpm.sock#listen = wordpress:9000#g' /etc/php/7.4/fpm/pool.d/www.conf
@@ -19,7 +19,7 @@ wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 
-wp core install --allow-root --url=$DOM_NAME --title=IWantToPass  --admin_user=$WP_ADMIN --admin_password=$WP_ADMIN_PASSWD --admin_email=$WP_ADMIN_MAIL --skip-email --path=/var/www/html/wordpress
+wp core install --allow-root --url=$DOM_NAME --title=PipoEsUnBuenPerro  --admin_user=$WP_ADMIN --admin_password=$WP_ADMIN_PASSWD --admin_email=$WP_ADMIN_MAIL --skip-email --path=/var/www/html/wordpress
 wp user create --allow-root $WP_USER $WP_USER_MAIL --user_pass=$WP_USER_PASS --path=/var/www/html/wordpress --url=$DOM_NAME
 
 /usr/sbin/php-fpm7.4 -F
