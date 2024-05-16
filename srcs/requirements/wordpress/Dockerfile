@@ -15,6 +15,7 @@ RUN wget -O /tmp/wordpress.tar.gz https://wordpress.org/latest.tar.gz
 RUN tar -xzf /tmp/wordpress.tar.gz -C /var/www/html
 
 COPY /tools/wp_init.sh .
+COPY /tools/inception_movie.html /var/www/html/inception_movie.html
 EXPOSE 9000
 
 CMD ["sh", "wp_init.sh"]

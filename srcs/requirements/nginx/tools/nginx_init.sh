@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # create the directory where we will have the ssl crt and key
 mkdir /etc/nginx/ssl
@@ -13,4 +13,3 @@ sed -i "s#certkey_path#$CERTKEY_PATH#g" /etc/nginx/nginx.conf
 
 # disable daemon for nginx (necessary for Docker)
 nginx -g "daemon off;"
-tail -f
